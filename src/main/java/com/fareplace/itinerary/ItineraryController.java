@@ -22,6 +22,6 @@ public class ItineraryController {
     @GetMapping("/priceWithConnections")
     @ApiOperation(value = "",  notes = "Searches inventory for an itinerary between two airports, which may include a connecting flight")
     public ResponseEntity<List<ItineraryResult>> getPriceWithConnections(@RequestParam String from, @RequestParam String to, @RequestParam String date) {
-        return ResponseEntity.ok(itineraryService.getPriceWithConnections(from, to, date));
+        return ResponseEntity.ok(itineraryService.getPriceWithConnections(from, to, date)); //todo error handling
     }
 }

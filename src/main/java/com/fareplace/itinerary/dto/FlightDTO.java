@@ -27,7 +27,8 @@ public class FlightDTO {
     private String to;
 
     @JsonProperty
-    private OffsetTime departureTime;
+//    private OffsetTime departureTime;
+    private String departureTime;
 
     @JsonProperty
     private float price;
@@ -38,7 +39,7 @@ public class FlightDTO {
     @JsonProperty
     private int duration;
 
-    public static FlightDTO of(String flightNumber, String departureDate, String from, String to, OffsetTime departureTime, int duration) {
+    public static FlightDTO of(String flightNumber, String departureDate, String from, String to, String departureTime, int duration) {
         return FlightDTO.builder()
                 .flightNumber(flightNumber)
                 .date(departureDate)

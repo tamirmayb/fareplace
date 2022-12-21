@@ -39,12 +39,12 @@ public class Flight {
     private String date;
 
     @JsonProperty
-    private OffsetTime departureTime;
+    private String departureTime;
 
     @JsonProperty
     private int duration;
 
-    public static Flight of(String flightNumber, String date, String from, String to, OffsetTime departureTime, int duration) {
+    public static Flight of(String flightNumber, String date, String from, String to, String departureTime, int duration) {
         return Flight.builder()
                 .id(UUID.randomUUID().toString())
                 .internalId(flightNumber

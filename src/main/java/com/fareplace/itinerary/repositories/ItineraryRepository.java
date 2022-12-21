@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface ItineraryRepository extends MongoRepository<Flight, String> {
-    Optional<List<ItineraryResult>> priceWithConnections(String from, String to, String date);
+    Optional<List<Flight>> findByFromAndDate(String from, String date);
+    Optional<List<Flight>> findByToAndDate(String to, String date);
+
 }
 
