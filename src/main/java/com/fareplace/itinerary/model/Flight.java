@@ -5,10 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetTime;
-import java.util.Date;
-import java.util.UUID;
-
 @Getter
 @Setter
 @ToString
@@ -21,10 +17,7 @@ public class Flight {
 
     @Id
     private @NonNull
-    String id = UUID.randomUUID().toString();
-
-    @JsonProperty
-    private String internalId;
+    String internalId;
 
     @JsonProperty
     private String flightNumber;
@@ -44,9 +37,8 @@ public class Flight {
     @JsonProperty
     private int duration;
 
-    public static Flight of(String flightNumber, String date, String from, String to, String departureTime, int duration) {
+    public static Flight of(String date, String flightNumber, String from, String to, String departureTime, int duration) {
         return Flight.builder()
-                .id(UUID.randomUUID().toString())
                 .internalId(flightNumber
                         .concat("-")
                         .concat(date))

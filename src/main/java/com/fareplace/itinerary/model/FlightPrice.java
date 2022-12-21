@@ -5,9 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-import java.util.UUID;
-
 @Getter
 @Setter
 @ToString
@@ -16,34 +13,34 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "prices")
-public class Price {
+public class FlightPrice {
 
     @Id
     private @NonNull
-    String id = UUID.randomUUID().toString();
-
-    @JsonProperty
-    private String internalId;
+    String internalId;
 
     @JsonProperty
     private String flightNumber;
 
     @JsonProperty
-    private Date departureDate;
+    private String departureDate;
 
     @JsonProperty
     private Float price;
 
+    @JsonProperty
+    private int availableSeats;
 
-    public static Price of(String flightNumber, Date departureDate, Float price) {
-        return Price.builder()
-                .id(UUID.randomUUID().toString())
+
+    public static FlightPrice of(String flightNumber, String departureDate, int availableSeats, Float price) {
+        return FlightPrice.builder()
                 .internalId(flightNumber
                         .concat("-")
-                        .concat(String.valueOf(departureDate.getTime())))
+                        .concat(departureDate))
                 .flightNumber(flightNumber)
                 .departureDate (departureDate)
                 .price(price)
+                .availableSeats(availableSeats)
                 .build();
     }
 }

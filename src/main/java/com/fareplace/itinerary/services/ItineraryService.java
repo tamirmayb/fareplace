@@ -1,6 +1,5 @@
 package com.fareplace.itinerary.services;
 
-import com.fareplace.itinerary.config.MongoConfig;
 import com.fareplace.itinerary.dto.ItineraryResult;
 import com.fareplace.itinerary.model.Flight;
 import com.fareplace.itinerary.repositories.ItineraryRepository;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @Service
 public class ItineraryService {
     private static final Logger log = LogManager.getLogger(ItineraryService.class);
-    private final MongoConfig mongo;
 
     private final ItineraryRepository itineraryRepository;
 
