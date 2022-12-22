@@ -1,7 +1,5 @@
 package com.fareplace.itinerary;
 
-import com.fareplace.itinerary.services.FlightsPricesService;
-import com.fareplace.itinerary.services.FlightsService;
 import com.fareplace.itinerary.services.ItineraryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +22,7 @@ public class Application extends SpringBootServletInitializer {
     public static void main(final String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
+        // todo these should be moved to another scheduled process...
 //        context.getBean(FlightsService.class).loadFlights();
 //        context.getBean(FlightsPricesService.class).loadFlightsPrices();
         log.info("server & db ready now");
