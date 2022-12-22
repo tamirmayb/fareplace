@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "prices")
 public class FlightPrice {
 
-    @Id
+    @JsonProperty
     private @NonNull
     String internalId;
 
@@ -29,18 +29,18 @@ public class FlightPrice {
     private Float price;
 
     @JsonProperty
-    private int availableSeats;
+    private Integer availableSeats;
 
 
-    public static FlightPrice of(String flightNumber, String departureDate, int availableSeats, Float price) {
+    public static FlightPrice of(String departureDate, String flightNumber, Integer availableSeats, Float price) {
         return FlightPrice.builder()
                 .internalId(flightNumber
                         .concat("-")
                         .concat(departureDate))
-                .flightNumber(flightNumber)
                 .departureDate (departureDate)
-                .price(price)
+                .flightNumber(flightNumber)
                 .availableSeats(availableSeats)
+                .price(price)
                 .build();
     }
 }

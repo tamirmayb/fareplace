@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "flights")
 public class Flight {
 
-    @Id
+    @JsonProperty
     private @NonNull
     String internalId;
 

@@ -1,5 +1,7 @@
 package com.fareplace.itinerary.dto;
 
+import com.fareplace.itinerary.model.Flight;
+import com.fareplace.itinerary.model.FlightPrice;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -39,14 +41,16 @@ public class FlightDTO {
     @JsonProperty
     private int duration;
 
-    public static FlightDTO of(String flightNumber, String departureDate, String from, String to, String departureTime, int duration) {
+    public static FlightDTO fromFlight(Flight flight, FlightPrice price) {
         return FlightDTO.builder()
-                .flightNumber(flightNumber)
-                .date(departureDate)
-                .from(from)
-                .to(to)
-                .departureTime(departureTime)
-                .duration(duration)
+                .flightNumber(flight.getFlightNumber())
+                .from(flight.getFrom())
+                .to(flight.getTo())
+                .date(flight.getDate())
+                .departureTime(flight.getDepartureTime())
+                .duration(flight.getDuration())
+                .availableSeats(price.getAvailableSeats())
+                .price(price.getPrice())
                 .build();
     }
 }

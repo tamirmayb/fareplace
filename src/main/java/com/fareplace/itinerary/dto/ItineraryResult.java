@@ -12,5 +12,5 @@ import java.util.List;
 @Setter
 public class ItineraryResult {
     private List<FlightDTO> Flights;
-    private float totalPrice;
+    private Double totalPrice;
 }
