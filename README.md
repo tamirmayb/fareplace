@@ -44,4 +44,4 @@ You can find the following api in the web service:
 ```
 
 Please let me know if anything is missing or needs modifications.
-### Thanks!
+### Thank you!

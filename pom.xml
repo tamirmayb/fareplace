@@ -26,7 +26,6 @@
             <artifactId>force-rest-api</artifactId>
             <version>0.0.45</version>
         </dependency>
-        <!-- Thanks for using https://jar-download.com -->
 
 
         <dependency>
