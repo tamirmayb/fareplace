@@ -30,8 +30,8 @@ public class ItineraryController {
         } catch (Exception e) {
             ApiError apiError = new ApiError();
             apiError.setMessage(e.getLocalizedMessage());
-            apiError.setApiErrorCode("500");
-            return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+            apiError.setApiErrorCode("400");
+            return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.fareplace.itinerary.model.Flight;
 import com.fareplace.itinerary.model.FlightPrice;
 import com.fareplace.itinerary.repositories.FlightsPricesRepository;
 import com.fareplace.itinerary.repositories.FlightsRepository;
+import com.fareplace.itinerary.utils.FormattedDateMatcher;
 import com.fareplace.itinerary.utils.ItineraryCalculator;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -24,6 +25,10 @@ public class ItineraryService {
     private final FlightsPricesRepository flightsPricesRepository;
 
     public List<ItineraryResult> getPriceWithConnections(String from, String to, String date, Integer connectionsCount) {
+        if(!FormattedDateMatcher.matches(date)) {
+            throw new IllegalArgumentException("Illegal date cannot search flights " + date);
+        }
+
         List<ItineraryResult> results = new ArrayList<>();
 
         log.info("starting getPriceWithConnections from = " + from + " to = " + to + "  date = " + date);
