@@ -11,6 +11,7 @@ import com.fareplace.itinerary.utils.ItineraryCalculator;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -19,7 +20,14 @@ import java.util.*;
 @AllArgsConstructor
 @Service
 public class ItineraryService {
+
+    private final Environment env;
+
+    private final static String EXTRA_CONN_TIME_PROP_NAME = "itinerary.extra.conn.time.mins";
+
     private static final Logger log = LogManager.getLogger(ItineraryService.class);
+
+    private static final long MINUTE = 60;
 
     private final FlightsRepository flightsRepository;
     private final FlightsPricesRepository flightsPricesRepository;
@@ -31,7 +39,7 @@ public class ItineraryService {
 
         List<ItineraryResult> results = new ArrayList<>();
 
-        log.info("starting getPriceWithConnections from = " + from + " to = " + to + "  date = " + date);
+        log.info("starting getPriceWithConnections from = " + from + " to = " + to + " date = " + date);
 
         Optional<List<Flight>> byDate = flightsRepository.findByDate(date);
         if(byDate.isPresent()) {
@@ -81,6 +89,8 @@ public class ItineraryService {
     }
 
     private boolean checkFlightTimes(List<FlightDTO> flightDTOs) {
+        String extraConnTime = env.getProperty(EXTRA_CONN_TIME_PROP_NAME);
+
         if(flightDTOs.size() == 1) {
             return true;
         }
@@ -92,11 +102,11 @@ public class ItineraryService {
                 FlightDTO dto = flightDTOs.get(i);
                 OffsetDateTime currFlightDepTime = getFlightOffsetDateTime(dto);
                 int currFlightDuration = dto.getDuration();
+                assert extraConnTime != null;
                 if(currFlightDepTime.toInstant()
                         .isAfter(lastFlightDepTime.toInstant()
                                 // adding 30 mins extra after landing to find the next flight
-                                .minusSeconds((currFlightDuration + 30) * 60L))) {
-                    log.warn("invalid itinerary, going to be late for flight " + dto.getFlightNumber());
+                                .minusSeconds((currFlightDuration + Integer.parseInt(extraConnTime)) * MINUTE))) {
                     return false;
                 } else {
                     lastFlightDepTime = currFlightDepTime;

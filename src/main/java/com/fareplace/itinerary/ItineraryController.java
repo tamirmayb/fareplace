@@ -20,7 +20,7 @@ public class ItineraryController {
     private final ItineraryService itineraryService;
 
     @GetMapping("/priceWithConnections")
-    @ApiOperation(value = "",  notes = "Searches inventory for an itinerary between two airports, which may include a connecting flight")
+    @ApiOperation(value = "",  notes = "Searches inventory for itineraries between two airports, which may include connecting flight(s)")
     public ResponseEntity<Object> getPriceWithConnections(@RequestParam(name = "Departure") String departure,
                                                           @RequestParam(name = "Destination") String destination,
                                                           @RequestParam(name = "Flight Date") String flightDate,
