@@ -22,7 +22,7 @@ You can find the following api in the web service:
 * This searches flights by date and finds matching itineraries.
 * Once found the flight/s for each itinerary are matched to the prices table to make sure the flight has available seats and can be sold, if not the flight will not be shown in the results section.
 * The flights are also checked for their departure times to make sure that no flight would be missed, to be on the safe side 30 mins are added to this calculation.
-* Note that you can also change the number of possible connections using the maxConnections field.
+* Note that you can also change the number of possible connections using maxConnections field.
 * If found results should be displayed like this:
 ```
 [
