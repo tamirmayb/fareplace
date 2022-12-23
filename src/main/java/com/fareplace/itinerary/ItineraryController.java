@@ -24,7 +24,7 @@ public class ItineraryController {
     public ResponseEntity<Object> getPriceWithConnections(@RequestParam(name = "Departure") String departure,
                                                           @RequestParam(name = "Destination") String destination,
                                                           @RequestParam(name = "Flight Date") String flightDate,
-                                                          @RequestParam(required = false, defaultValue = "2", name = "Max Connections") int maxConnections) {
+                                                          @RequestParam(defaultValue = "2", name = "Max Connections") int maxConnections) {
         try {
             return ResponseEntity.ok(itineraryService.getPriceWithConnections(departure.toUpperCase(), destination.toUpperCase(), flightDate, maxConnections));
         } catch (Exception e) {

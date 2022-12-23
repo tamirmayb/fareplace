@@ -60,11 +60,13 @@ public class ItineraryService {
                                 }
                                 if (flightsPricesCache.get(flightId).isPresent()) {
                                     FlightPrice flightPrice = flightsPricesCache.get(flightId).get();
+                                    // just to make sure
                                     if (flightPrice.getPrice() > 0 && flightPrice.getAvailableSeats() > 0) {
                                         flightsDtos.add(FlightDTO.fromFlight(map.get(flightPrice.getInternalId()), flightPrice));
                                     }
                                 }
                             });
+                            // check all flight times to make sure that there are no broken itineraries, sum the prices for totalPrice and return the results
                             if (flightsDtos.size() > 0 && checkFlightTimes(flightsDtos)) {
                                 double totalPrice = flightsDtos.stream().mapToDouble(FlightDTO::getPrice).sum();
                                 results.add(new ItineraryResult(flightsDtos, totalPrice));
