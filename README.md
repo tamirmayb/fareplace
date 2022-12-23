@@ -6,9 +6,10 @@ This is the Itinerary calculator application for the BE-Challenge, developed usi
 ### Prerequisite
 * Java and tomcat
 * Run ```mvn clean install```
-* Make sure that both csv files are located in the resources folder.  
+* Make sure that both csv files are located in resources folder.  
 * Connection to Mongodb is also provided by default and can be changed if needed by modifying the fields starting with ```db.``` in application.properties.
-* Note that I've already run a process which fills the db from the csv files, the code for this process can be found in FlightsService and FlightsPricesService.
+* I've already run a process which fills the db from the csv files, the code for this process can be found in FlightsService and FlightsPricesService.
+* Note that this process needs to be moved to a scheduled task manager which should update each table at specific intervals. This is not a part of this assignment and left as todo.
 
 ### Using the web service
 * Start the server and go to http://127.0.0.1:8080/fareplace/api/swagger-ui.html#/itinerary-controller/getPriceWithConnections
