@@ -5,16 +5,16 @@ import com.fareplace.itinerary.model.Flight;
 import java.util.*;
 
 public class ItineraryCalculator {
-    private static final List<List<String>> FLIGHT_LIST = new ArrayList<>();
 
     public static List<List<String>> calculateItineraries(List<Flight> flights, String departure, String destination) {
-        FLIGHT_LIST.clear();
-        Hashtable<String, Boolean> visited = new Hashtable<>();
-        calculateItineraryRecursive(flights, departure, destination, visited, "");
-        return FLIGHT_LIST;
+        List<List<String>> itineraries = new ArrayList<>();
+        calculateItineraryRecursive(flights, departure, destination, new Hashtable<>(), "", itineraries);
+        return itineraries;
     }
 
-    private static void calculateItineraryRecursive(List<Flight> flights, String departure, String destination, Hashtable<String, Boolean> visited, String itineraryFlightsIds) {
+    private static void calculateItineraryRecursive(List<Flight> flights, String departure, String destination,
+                                                    Hashtable<String, Boolean> visited, String itineraryFlightsIds,
+                                                    List<List<String>> itineraries) {
         if (Objects.equals(departure, destination) || (visited.containsKey(departure) && visited.get(departure)))
             return;
 
@@ -30,10 +30,10 @@ public class ItineraryCalculator {
 
                 String tmpIds = (itineraryFlightsIds.isEmpty() ? "" : itineraryFlightsIds + ",") + flight.getInternalId();
                 if (flight.getTo().equals(destination)) {
-                    FLIGHT_LIST.add(Arrays.asList(tmpIds.split(", ")));
+                    itineraries.add(Arrays.asList(tmpIds.split(", ")));
                 }
                 // once from airport is filled we can check matching destinations for connections
-                calculateItineraryRecursive(flights, flight.getTo(), destination, newVisited, tmpIds);
+                calculateItineraryRecursive(flights, flight.getTo(), destination, newVisited, tmpIds, itineraries);
             }
         }
         if (toTrue) {
