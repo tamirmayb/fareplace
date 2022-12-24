@@ -20,7 +20,7 @@ import java.util.*;
 
 @AllArgsConstructor
 @Service
-public class ItineraryService {
+public class ItineraryService implements IItineraryService {
 
     private final Environment env;
 
