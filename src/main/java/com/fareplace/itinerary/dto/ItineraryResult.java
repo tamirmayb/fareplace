@@ -10,6 +10,7 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
+@EqualsAndHashCode
 public class ItineraryResult {
     private List<FlightDTO> Flights;
     private Double totalPrice;

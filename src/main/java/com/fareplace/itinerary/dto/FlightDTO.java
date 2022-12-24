@@ -5,8 +5,6 @@ import com.fareplace.itinerary.model.FlightPrice;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.time.OffsetTime;
-
 @Getter
 @Setter
 @ToString
@@ -14,6 +12,7 @@ import java.time.OffsetTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class FlightDTO {
 
     @JsonProperty

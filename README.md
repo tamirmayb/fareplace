@@ -44,5 +44,10 @@ You can find the following api in the web service:
 ]
 ```
 
+### TODOs
+* Add more tests.
+* At the moment only one airline is supported and the csv files are attached to the application. 
+  * Next phase should create flight/flight prices scheduled tasks which should fill the tables in scheduled intervals, all airline files should then be fetched from S3.
+
 Please let me know if anything is missing or needs modifications.
 ### Thank you!

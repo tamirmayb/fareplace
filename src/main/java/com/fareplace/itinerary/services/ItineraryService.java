@@ -31,13 +31,15 @@ public class ItineraryService implements IItineraryService {
     private final FlightsRepository flightsRepository;
     private final FlightsPricesRepository flightsPricesRepository;
 
-    public List<ItineraryResult> getPriceWithConnections(String from, String to, String date, Integer maxConnections) {
+    public List<ItineraryResult> getPriceWithConnections(String fromStr, String toStr, String date, Integer maxConnections) {
+        String from = fromStr.toUpperCase();
+        String to = toStr.toUpperCase();
+
         if(!FormattedDateMatcher.matches(date)) {
             throw new IllegalArgumentException("Illegal date cannot search flights " + date);
         }
 
         List<ItineraryResult> results = new ArrayList<>();
-
         log.info("starting getPriceWithConnections from = " + from + " to = " + to + " date = " + date);
 
         Optional<List<Flight>> byDate = flightsRepository.findByDate(date);
