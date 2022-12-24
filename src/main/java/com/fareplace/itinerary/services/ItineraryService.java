@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @AllArgsConstructor
@@ -26,8 +27,6 @@ public class ItineraryService {
     private final static String EXTRA_CONN_TIME_PROP_NAME = "itinerary.extra.conn.time.mins";
 
     private static final Logger log = LogManager.getLogger(ItineraryService.class);
-
-    private static final long MINUTE = 60;
 
     private final FlightsRepository flightsRepository;
     private final FlightsPricesRepository flightsPricesRepository;
@@ -105,8 +104,8 @@ public class ItineraryService {
                 assert extraConnTime != null;
                 if(currFlightDepTime.toInstant()
                         .isAfter(lastFlightDepTime.toInstant()
-                                // adding 30 mins extra after landing to find the next flight
-                                .minusSeconds((currFlightDuration + Integer.parseInt(extraConnTime)) * MINUTE))) {
+                                // subtract current flight duration plus 30 mins extra after landing to find the next flight
+                                .minus((currFlightDuration + Integer.parseInt(extraConnTime)), ChronoUnit.MINUTES))) {
                     return false;
                 } else {
                     lastFlightDepTime = currFlightDepTime;
