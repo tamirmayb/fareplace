@@ -31,7 +31,7 @@ public class ItineraryService {
     private final FlightsRepository flightsRepository;
     private final FlightsPricesRepository flightsPricesRepository;
 
-    public List<ItineraryResult> getPriceWithConnections(String from, String to, String date, Integer connectionsCount) {
+    public List<ItineraryResult> getPriceWithConnections(String from, String to, String date, Integer maxConnections) {
         if(!FormattedDateMatcher.matches(date)) {
             throw new IllegalArgumentException("Illegal date cannot search flights " + date);
         }
@@ -54,13 +54,13 @@ public class ItineraryService {
             calculatedItineraries.forEach(calcItinerary -> {
                 calcItinerary.forEach(itineraryFlightIds -> {
                     List<FlightDTO> flightsDtos = new ArrayList<>();
-                    List<String> suggestItineraries = Arrays.asList(itineraryFlightIds.split(","));
-                    if(suggestItineraries.size() <= connectionsCount) {
-                        Collections.singletonList(suggestItineraries).forEach(itinerary -> {
+                    List<String> matchingFlightsIds = Arrays.asList(itineraryFlightIds.split(","));
+                    if(matchingFlightsIds.size() <= maxConnections) {
+                        Collections.singletonList(matchingFlightsIds).forEach(itinerary -> {
                             itinerary.forEach(flightId -> {
 
-                                // since flights cna exist in multiple itineraries we use a local cache map so that
-                                // we'll only fetch from db when cache is missing the flight price being searched.
+                                // since flights prices should not change while processing use a local cache map so that
+                                // will only fetch from db when cache is missing the flight price being searched.
                                 if(!flightsPricesCache.containsKey(flightId)) {
                                     Optional<FlightPrice> byInternalId = flightsPricesRepository.findByInternalId(flightId);
                                     flightsPricesCache.put(flightId, byInternalId);
@@ -83,7 +83,7 @@ public class ItineraryService {
                 });
             });
         }
-        log.info("getPriceWithConnections done. Found = " + results.size() + " possible itineraries");
+        log.info("getPriceWithConnections done. Found " + results.size() + " possible itineraries");
         return results;
     }
 
