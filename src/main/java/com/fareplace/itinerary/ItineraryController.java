@@ -1,6 +1,6 @@
 package com.fareplace.itinerary;
 
-import com.fareplace.itinerary.services.ItineraryService;
+import com.fareplace.itinerary.services.IItineraryService;
 import com.force.api.ApiError;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="itinerary")
 public class ItineraryController {
 
-    private final ItineraryService itineraryService;
+    private final IItineraryService itineraryService;
 
     @GetMapping("/priceWithConnections")
     @ApiOperation(value = "",  notes = "Searches inventory for itineraries between two airports, which may include connecting flight(s)")
